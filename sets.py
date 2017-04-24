@@ -1,38 +1,45 @@
-'''
-Consider in python using lists to represent sets, as they are defined in math. If you do so, you can perform basic set operations using list comprehensions. 
 
-Your mission, create list comprehension-based functions that perform the following set operations on python lists:
---Union of the sets A and B, denoted A ∪ B, is the set of all objects that are a member of A, or B, or both. The union of {1, 2, 3} and {2, 3, 4} is the set {1, 2, 3, 4} .
---Intersection of the sets A and B, denoted A ∩ B, is the set of all objects that are members of both A and B. The intersection of {1, 2, 3} and{2, 3, 4} is the set {2, 3} .
---Set difference of U and A, denoted U \ A, is the set of all members of U that are not members of A. The set difference {1, 2, 3} \ {2, 3, 4} is {1}, while, conversely, the set difference {2, 3, 4} \ {1, 2, 3} is {4} . When A is a subset of U, the set difference U \ A is also called the complementof A in U. In this case, if the choice of U is clear from the context, the notation Ac is sometimes used instead of U \ A, particularly if U is a universal set as in the study of Venn diagrams.
---Symmetric difference of sets A and B, denoted A △ B or A ⊖ B, is the set of all objects that are a member of exactly one of A and B (elements which are in one of the sets, but not in both). For instance, for the sets {1, 2, 3} and {2, 3, 4} , the symmetric difference set is {1, 4} . It is the set difference of the union and the intersection, (A ∪ B) \ (A ∩ B) or (A \ B) ∪ (B \ A).
---Cartesian product of A and B, denoted A × B, is the set whose members are all possible ordered pairs (a, b) where a is a member of A and b is a member of B. The cartesian product of {1, 2} and {red, white} is {(1, red), (1, white), (2, red), (2, white)}.
-'''
 
 def union(a,b):
-    totes = [i for i in a] + [i for b if not i in a]
-    print totes
+    totes = [i for i in a] + ([i for i in b if not i in a])
+    #print totes
     return totes
 
 def intersection(a,b):
     totes = [i for i in a if i in b]
-    print totes
+    #print totes
     return totes
 
 def setDifference(a,b):
     totes = [i for i in a if i not in b]
-    print totes
+    #print totes
     return totes
     
 
 def SymmetricDifference(a,b):
-    union = union(a,b)
-    intersection = intersection(a,b)
-    totes = setDifference(union, intersection)
-    print totes
+    u = union(a,b)
+    i = intersection(a,b)
+    totes = setDifference(u, i)
+    #print totes
     return totes
 
 def cartesian(a,b):
     totes = [(a[i],b[i]) for i in range(len(a))]
-    print totes
+    totes += ([(a[i],b[len(a)-1-i]) for i in range(len(a))])
+    #print totes
     return totes
+
+print("testing union of [1,2,3], [4,5,6]:")
+print(union([1,2,3], [4,5,6]))
+
+print("testing intersection of [1,2,3], [2,3,4]:")
+print(intersection([1,2,3], [2,3,4]))
+
+print("testing set difference of [1,2,3], [2,3,4]:")
+print(setDifference([1,2,3], [2,3,4]))
+
+print("testing symetric differnce of [1,2,3], [2,3,4]:")
+print(SymmetricDifference([1,2,3], [2,3,4]))
+
+print("testing Cartesian of [1,2], [red, white]:")
+print(cartesian([1,2], ["red", "white"]))
